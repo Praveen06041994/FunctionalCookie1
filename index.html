@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Functional Cookie Demo</title>
+  <style>
+    body.light { background-color: #ffffff; color: #000000; }
+    body.dark { background-color: #000000; color: #ffffff; }
+  </style>
+  <script>
+    // Apply theme from cookie when page loads
+    window.onload = function() {
+      const cookies = document.cookie.split(';').map(c => c.trim());
+      const themeCookie = cookies.find(c => c.startsWith("userTheme="));
+      if (themeCookie) {
+        const theme = themeCookie.split("=")[1];
+        document.body.className = theme;
+      }
+    };
+
+    // Function to set theme preference
+    function setTheme(theme) {
+      document.cookie = "userTheme=" + theme + "; path=/; max-age=604800; Secure; SameSite=Lax";
+      document.body.className = theme;
+    }
+  </script>
+</head>
+<body class="light">
+  <h1>Functional Cookie Demo Page</h1>
+  <p>This page sets a functional cookie to remember your theme preference.</p>
+
+  <button onclick="setTheme('light')">Light Theme</button>
+  <button onclick="setTheme('dark')">Dark Theme</button>
+
+  <p><a href="https://www.seqrite.com/data-privacy">Powered by Seqrite</a></p>
+</body>
+</html>
